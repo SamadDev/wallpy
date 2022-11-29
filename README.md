@@ -1,4 +1,4 @@
-# wallpy_test
+# wallpy
 
 A new Flutter project.
 
