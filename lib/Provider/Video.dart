@@ -8,14 +8,9 @@ class Video with ChangeNotifier {
 
   Future<void> getVideo(category, page, {bool remove = true}) async {
     try {
-
       final response = await http.get(
-          Uri.parse(
-              "https://api.pexels.com/videos/search?query=$category&per_page=35&page=$page"),
-          headers: {
-            'Authorization':
-                'Bearer 563492ad6f917000010000018fe27b2e7b9749c7ab67dc5da14cf231'
-          });
+          Uri.parse("https://api.pexels.com/videos/search?query=$category&per_page=35&page=$page"),
+          headers: {'Authorization': '563492ad6f917000010000018fe27b2e7b9749c7ab67dc5da14cf231'});
       var jsonData = json.decode(response.body);
 
       if (videoModule == null) {
@@ -34,24 +29,17 @@ class Video with ChangeNotifier {
     }
   }
 
-
-
   VideosModule? searchModule;
 
-  Future<void> search( page, {bool remove = true,String category='all'}) async {
-
+  Future<void> search(page, {bool remove = true, String category = 'all'}) async {
     try {
-      if (searchModule == null||remove==false) {
+      if (searchModule == null || remove == false) {
         changeIsNull();
         changeState();
       }
       final response = await http.get(
-          Uri.parse(
-              "https://api.pexels.com/videos/search?query=$category&per_page=35&page=$page"),
-          headers: {
-            'Authorization':
-            'Bearer 563492ad6f917000010000018fe27b2e7b9749c7ab67dc5da14cf231'
-          });
+          Uri.parse("https://api.pexels.com/videos/search?query=$category&per_page=35&page=$page"),
+          headers: {'Authorization': '563492ad6f917000010000018fe27b2e7b9749c7ab67dc5da14cf231'});
       var jsonData = json.decode(response.body);
       print(jsonData);
       if (searchModule == null) {
@@ -72,19 +60,15 @@ class Video with ChangeNotifier {
     }
   }
 
-  bool isNull=false;
-  void changeIsNull(){
-    isNull=true;
+  bool isNull = false;
+  void changeIsNull() {
+    isNull = true;
     notifyListeners();
   }
 
-  bool isSearch=false;
-  void changeState(){
+  bool isSearch = false;
+  void changeState() {
     isSearch = !isSearch;
     notifyListeners();
   }
-
 }
-
-
-

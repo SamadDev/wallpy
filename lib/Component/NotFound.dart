@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NotFoundScreen extends StatelessWidget {
-  static const String route = "/NotFoundScreen";
+  static  String route = "/NotFoundScreen";
 
   @override
   Widget build(BuildContext context) {

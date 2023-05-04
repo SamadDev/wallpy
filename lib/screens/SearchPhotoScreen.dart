@@ -32,7 +32,9 @@ class _SearchScreenState extends State<SearchScreen> {
     final language = Provider.of<Language>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).buttonColor,),
+        iconTheme: IconThemeData(
+          color: Theme.of(context).buttonColor,
+        ),
         backgroundColor: Theme.of(context).cardColor,
         actions: [
           Container(
@@ -57,17 +59,34 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(top: 17),
                 border: InputBorder.none,
-                suffixIcon: TextButton(
+                suffixIcon: IconButton(
                   onPressed: () {
                     text.clear();
                   },
-                  child: Icon(
-                    value.isEmpty ? Icons.search : Icons.clear,
-                    color: Theme.of(context).buttonColor,
-                    size: 30,
+                  icon: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (child, anim) => RotationTransition(
+                      turns: child.key == ValueKey('icon1')
+                          ? Tween<double>(begin: 0.75, end: 1).animate(anim)
+                          : Tween<double>(begin: 1, end: 0.75).animate(anim),
+                      child: FadeTransition(opacity: anim, child: child),
+                    ),
+                    child: value.isEmpty
+                        ? Icon(
+                            Icons.search,
+                            key: ValueKey('icon1'),
+                            color: Theme.of(context).buttonColor,
+                            size: 30,
+                          )
+                        : Icon(
+                            Icons.clear,
+                            key: ValueKey("icon2"),
+                            color: Theme.of(context).buttonColor,
+                            size: 30,
+                          ),
                   ),
                 ),
-                hintStyle: Theme.of(context).textTheme.headline4,
+                hintStyle: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 15),
                 hintText: language.words['search to photo'],
               ),
             ),
@@ -105,43 +124,30 @@ class _SearchScreenState extends State<SearchScreen> {
                                 child: StaggeredGridView.countBuilder(
                                   itemCount: photo.searchModule!.photos!.length,
                                   staggeredTileBuilder: (i) =>
-                                      StaggeredTile.count((i % 7 == 0) ? 2 : 1,
-                                          (i % 7 == 0) ? 2 : 1),
+                                      StaggeredTile.count((i % 7 == 0) ? 2 : 1, (i % 7 == 0) ? 2 : 1),
                                   mainAxisSpacing: 2.0,
                                   crossAxisSpacing: 2.0,
                                   crossAxisCount: 4,
-                                  itemBuilder: (BuildContext context, i) =>
-                                      GestureDetector(
+                                  itemBuilder: (BuildContext context, i) => GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (ctx) => DetailScreen(
-                                                  index: photo
-                                                      .searchModule!.photos!
-                                                      .indexOf(photo
-                                                          .searchModule!
-                                                          .photos![i]),
-                                                  list: photo.searchModule)));
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (ctx) => DetailScreen(
+                                              index:
+                                                  photo.searchModule!.photos!.indexOf(photo.searchModule!.photos![i]),
+                                              list: photo.searchModule)));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                              width: 5,
-                                              color: AppTheme.black4)),
+                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(width: 5, color: AppTheme.black4)),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
                                         child: CachedNetworkImage(
-                                          imageUrl: photo.searchModule!
-                                              .photos![i].src!.medium
-                                              .toString(),
+                                          imageUrl: photo.searchModule!.photos![i].src!.medium.toString(),
                                           fit: BoxFit.cover,
                                           placeholder: (ctx, snap) => Opacity(
                                               opacity: 0.1,
-                                              child: Image.asset(
-                                                  'assets/images/walpy.jpg',
-                                                  fit: BoxFit.cover)),
+                                              child: Image.asset('assets/images/walpy.jpg', fit: BoxFit.cover)),
                                           // repeat: ImageRepeat.noRepeat,
                                         ),
                                       ),

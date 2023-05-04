@@ -46,11 +46,32 @@ class _SearchVideoState extends State<SearchVideo> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(top: 17),
                 border: InputBorder.none,
-                suffixIcon: CloseButton(
+                suffixIcon: IconButton(
                   onPressed: () {
                     text.clear();
                   },
-                  color: Theme.of(context).buttonColor,
+                  icon: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (child, anim) => RotationTransition(
+                      turns: child.key == ValueKey('icon1')
+                          ?Tween<double>(begin: 0.75, end: 1).animate(anim)
+                          :  Tween<double>(begin: 1, end: 0.75).animate(anim),
+                      child: FadeTransition(opacity: anim, child: child),
+                    ),
+                    child: value.isEmpty
+                        ? Icon(
+                      Icons.search,
+                      key: ValueKey('icon1'),
+                      color: Theme.of(context).buttonColor,
+                      size: 30,
+                    )
+                        : Icon(
+                      Icons.clear,
+                      key: ValueKey("icon2"),
+                      color: Theme.of(context).buttonColor,
+                      size: 30,
+                    ),
+                  ),
                 ),
                 hintStyle: Theme.of(context).textTheme.headline4,
                 hintText: language.words['search to video'],
