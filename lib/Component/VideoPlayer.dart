@@ -131,6 +131,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                                 SizedBox(
                                   height: 30,
                                 ),
+                                Spacer(),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,

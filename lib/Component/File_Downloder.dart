@@ -27,9 +27,10 @@ class _FileDownloadWidgetState extends State<FileDownloadWidget> {
   }
 
   static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+      // String id, DownloadTaskStatus status, int progress) {
+      String id,  status, int progress) {
     final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
+    IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
   }
 

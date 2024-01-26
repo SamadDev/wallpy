@@ -37,7 +37,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_downloader:
+  flutter_downloader: ^1.9.0
   provider:
   http:
   google_fonts:
@@ -50,7 +50,7 @@ dev_dependencies:
   fluttertoast:
   share:
   shimmer:
-  video_player:
+#  video_player:
   chewie:
   url_launcher:
   cached_network_image:
@@ -60,6 +60,7 @@ dev_dependencies:
   animations:
   flutter_offline:
   flutter_launcher_icons:
+  flutter_file_downloader:
 
   flutter_lints: ^2.0.0
 flutter_icons:

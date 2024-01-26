@@ -10,7 +10,7 @@ class Pixel with ChangeNotifier {
     try {
       final response = await http.get(
           Uri.parse("https://api.pexels.com/v1/search?query=$category&per_page=45&page=$page"),
-          headers: {'Authorization': '563492ad6f917000010000018fe27b2e7b9749c7ab67dc5da14cf231'});
+          headers: {'Authorization': 'mKftJkYPEiaQ28j4xAdRuNJO64fKVVNzHH5sb1kTwDUoy4szmoSWKU6b'});
 
       var jsonData = json.decode(response.body);
       print(jsonData);
@@ -42,7 +42,7 @@ class Pixel with ChangeNotifier {
       print("_____________first_________");
       final response = await http.get(
           Uri.parse("https://api.pexels.com/v1/search?query=$category&per_page=45&page=$page"),
-          headers: {'Authorization': '563492ad6f917000010000018fe27b2e7b9749c7ab67dc5da14cf231'});
+          headers: {'Authorization': 'mKftJkYPEiaQ28j4xAdRuNJO64fKVVNzHH5sb1kTwDUoy4szmoSWKU6b'});
       var jsonData = json.decode(response.body);
       if (searchModule == null) {
         searchModule = PixelModel.fromJson(jsonData);
